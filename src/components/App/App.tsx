@@ -1,6 +1,5 @@
 import React from 'react';
 import {Action, Dispatch} from 'redux';
-import './App.scss';
 import {connect} from "react-redux";
 import TodoAppReduxState from "../../models/TodoAppReduxState";
 import {StringPayloadAction} from "../../models/TodoAppActions";
@@ -12,6 +11,7 @@ import Footer from "../Footer/Footer";
 
 interface TodoAppProps {
     addTodo: (newTodo: string) => Action;
+    toggleAll: () => Action;
     todoItems: Todo[];
     filterName: string;
 }
@@ -73,9 +73,7 @@ class App extends React.Component <TodoAppProps, TodoAppState> {
         if (this.props.todoItems.length) {
             return (
                 <footer className={'footer'}>
-                    <Footer todoItems={this.props.todoItems}
-                            filterName={'SHOW_ALL'}
-                    />
+                    <Footer/>
                 </footer>
             )
         }
@@ -83,10 +81,6 @@ class App extends React.Component <TodoAppProps, TodoAppState> {
 
     render() {
         const visibleTodos = this.filterTodos(this.props.todoItems, this.props.filterName);
-
-        const date = new Date()
-        const options = {weekday: 'long', month: 'long', day: 'numeric'};
-        const today = date.toLocaleDateString(undefined, options);
 
         return (
             <section className="todoapp">
@@ -104,6 +98,12 @@ class App extends React.Component <TodoAppProps, TodoAppState> {
                 </div>
 
                 <section className={'main'}>
+                    <input id="toggle-all"
+                           className="toggle-all"
+                           type="checkbox"
+                           onClick={this.props.toggleAll}
+                    />
+                    <label htmlFor="toggle-all">Mark all as complete</label>
                     <TodoList
                         todoItems={visibleTodos}
                     />
@@ -112,7 +112,6 @@ class App extends React.Component <TodoAppProps, TodoAppState> {
                 {this.showFooter()}
 
             </section>
-
         );
     }
 }
@@ -123,7 +122,8 @@ const mapStateToProps = (storeState: TodoAppReduxState) => ({
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-    addTodo: (newTodo: string): StringPayloadAction => dispatch({type: 'ADD_TODO', payload: newTodo})
+    addTodo: (newTodo: string): StringPayloadAction => dispatch({type: 'ADD_TODO', payload: newTodo}),
+    toggleAll: (): Action => dispatch({type: 'TOGGLE_ALL'})
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

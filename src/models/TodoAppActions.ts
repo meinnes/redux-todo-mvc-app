@@ -26,9 +26,3 @@ export interface TodoAppAction {
     payload: boolean & string & Todo;
     text: string;
 }
-
-//
-// export default interface TodoAppActions extends Action {
-//     payload: string & number & Todo & boolean
-//     text?: string;
-// }

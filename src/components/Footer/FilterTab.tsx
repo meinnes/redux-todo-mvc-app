@@ -3,25 +3,20 @@ import React, {Component} from "react";
 import {connect} from 'react-redux';
 import {StringPayloadAction} from "../../models/TodoAppActions";
 import {Action, Dispatch} from "redux";
+import TodoAppReduxState from "../../models/TodoAppReduxState";
 
-type FilterTabsProps = {
+type FilterTabProps = {
     filterName: string;
     setVisibility: (filterName: string) => Action;
     tabName: string;
     value: number;
     handleTabChange: () => void;
-}
-type FilterTabsState = {
-    isSelected: boolean;
+    selectedFilter: string;
 }
 
-class FilterTab extends Component<FilterTabsProps, FilterTabsState> {
-    constructor(props: FilterTabsProps) {
-        super(props);
-        this.state = {
-            isSelected: false,
-        }
-    }
+type FilterTabState = {}
+
+class FilterTab extends Component<FilterTabProps, FilterTabState> {
 
     setVisibility() {
         const filterName = this.props.filterName;
@@ -30,21 +25,20 @@ class FilterTab extends Component<FilterTabsProps, FilterTabsState> {
 
     handleTabChange() {
         this.props.handleTabChange();
-        this.setState({isSelected: true})
         this.setVisibility();
+    }
 
+    isThisTabSelected() {
+        return this.props.selectedFilter === this.props.filterName;
     }
 
     render() {
         const tabName = this.props.tabName;
-        const selectedStyle = this.state.isSelected?'selected':'';
+        const selectedStyle = this.isThisTabSelected() ? 'selected' : '';
         return (
-            <li
-                value={this.props.value}
-                onClick={() => this.handleTabChange()}
-            ><a className={selectedStyle} href={'#'}> {tabName}</a>
-
-
+            <li value={this.props.value}
+                onClick={() => this.handleTabChange()}>
+                <a className={selectedStyle}> {tabName}</a>
             </li>
         )
     }
@@ -57,4 +51,8 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
     }),
 });
 
-export default connect(null, mapDispatchToProps)(FilterTab);
+const mapStateToProps = (storeState: TodoAppReduxState) => ({
+    selectedFilter: storeState.filterName
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(FilterTab);

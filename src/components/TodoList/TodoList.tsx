@@ -14,16 +14,13 @@ export default class TodoList extends Component<TodoListProps, TodoListState> {
         return this.props.todoItems.map((item: Todo, index: number) => {
             return (
                 <ul className={'todo-list'}>
-                        <TodoItem
-                            item={item}
-                            index={index}
-                            key={`${item.name}-${item.isDone}`}
-                        />
-
+                    <TodoItem
+                        item={item}
+                        index={index}
+                        key={`${item.name}-${item.isDone}`}
+                    />
                 </ul>
-
             )
-
         });
     }
 }

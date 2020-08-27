@@ -71,19 +71,17 @@ class TodoItem extends Component<TodoItemProps, TodoItemState> {
                         </label>
                         <button className={'destroy'}
                                 onClick={() => this.props.deleteTodoItem(index)}
-
                         >
                         </button>
                     </div>
-
                 </li>)
-
         } else {
             return (
                 <li className={'editing'}>
                     <form onSubmit={(e) => this.handleSubmit(e)}>
                         <input className={'edit'} value={this.state.editInputText}
-                               onChange={(e) => this.handleEdit(e)}/>
+                               onChange={(e) => this.handleEdit(e)}
+                        />
                     </form>
                 </li>
             );
@@ -94,10 +92,7 @@ class TodoItem extends Component<TodoItemProps, TodoItemState> {
 const mapDispatchToProps = (dispatch: Dispatch) => ({
     deleteTodoItem: (index: number): NumberPayloadAction => dispatch({type: 'DELETE_TODO', payload: index}),
     saveEdited: (index: number, editText: string): NumberPayloadAction | TextAction => dispatch({
-        type: 'SAVE_EDITED',
-        payload: index,
-        text: editText
-    }),
+        type: 'SAVE_EDITED', payload: index, text: editText}),
     toggleItemDone: (index: number): NumberPayloadAction => dispatch({type: 'TOGGLE_TODO', payload: index}),
 });
 

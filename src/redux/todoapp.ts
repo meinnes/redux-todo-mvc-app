@@ -5,7 +5,8 @@ import Todo from "../models/Todo";
 
 const initialState: TodoAppReduxState = {todoItems: [], filterName: 'SHOW_ALL'};
 
-export const todoapp = (storeState: TodoAppReduxState = initialState, action: TodoAppAction):TodoAppReduxState => {
+export const todoapp = (storeState: TodoAppReduxState = initialState, action: TodoAppAction): TodoAppReduxState => {
+
     switch (action.type) {
 
         case 'ADD_TODO':
@@ -39,13 +40,18 @@ export const todoapp = (storeState: TodoAppReduxState = initialState, action: To
             return {...storeState, todoItems: editedList};
 
         case 'SET_VISIBILITY_FILTER':
-            return {...storeState, filterName : action.payload};
+            return {...storeState, filterName: action.payload};
 
         case 'CLEAR_COMPLETED':
-            const activeTodoList = storeState.todoItems.filter((item: Todo) => {
-                return !item.isDone;
-            });
+            const activeTodoList = storeState.todoItems.filter((item: Todo) => !item.isDone);
             return {...storeState, todoItems: activeTodoList};
+
+        case 'TOGGLE_ALL':
+            const allDone = storeState.todoItems.map((item: Todo) => {
+                item.isDone = true;
+                return item;
+            })
+            return {...storeState, todoItems: allDone};
 
         default:
             return storeState;
