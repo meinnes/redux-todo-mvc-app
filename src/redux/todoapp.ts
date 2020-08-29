@@ -48,7 +48,7 @@ export const todoapp = (storeState: TodoAppReduxState = initialState, action: To
 
         case 'TOGGLE_ALL':
             const allDone = storeState.todoItems.map((item: Todo) => {
-                item.isDone = true;
+                item.isDone = action.payload;
                 return item;
             })
             return {...storeState, todoItems: allDone};

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import {Action, Dispatch} from 'redux';
 import {connect} from "react-redux";
 import TodoAppReduxState from "../../models/TodoAppReduxState";
@@ -11,7 +11,7 @@ import Footer from "../Footer/Footer";
 
 interface TodoAppProps {
     addTodo: (newTodo: string) => Action;
-    toggleAll: () => Action;
+    toggleAll: (checked: boolean) => Action;
     todoItems: Todo[];
     filterName: string;
 }
@@ -79,6 +79,12 @@ class App extends React.Component <TodoAppProps, TodoAppState> {
         }
     }
 
+    toggleAll(e: ChangeEvent<HTMLInputElement>){
+        let target = e.target;
+        let checked = target.checked;
+        this.props.toggleAll(checked);
+    }
+
     render() {
         const visibleTodos = this.filterTodos(this.props.todoItems, this.props.filterName);
 
@@ -101,7 +107,8 @@ class App extends React.Component <TodoAppProps, TodoAppState> {
                     <input id="toggle-all"
                            className="toggle-all"
                            type="checkbox"
-                           onClick={this.props.toggleAll}
+                           checked = {this.props.todoItems.filter(item => !item.isDone).length === 0}
+                           onChange={e => this.toggleAll(e)}
                     />
                     <label htmlFor="toggle-all">Mark all as complete</label>
                     <TodoList
@@ -123,7 +130,7 @@ const mapStateToProps = (storeState: TodoAppReduxState) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
     addTodo: (newTodo: string): StringPayloadAction => dispatch({type: 'ADD_TODO', payload: newTodo}),
-    toggleAll: (): Action => dispatch({type: 'TOGGLE_ALL'})
+    toggleAll: (checked: boolean): Action => dispatch({type: 'TOGGLE_ALL', payload: checked})
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
