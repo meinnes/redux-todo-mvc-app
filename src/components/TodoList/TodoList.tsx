@@ -6,10 +6,7 @@ interface TodoListProps {
     todoItems: Todo[];
 }
 
-interface TodoListState {
-}
-
-export default class TodoList extends Component<TodoListProps, TodoListState> {
+export default class TodoList extends Component<TodoListProps, {}> {
     render() {
         return this.props.todoItems.map((item: Todo, index: number) => {
             return (

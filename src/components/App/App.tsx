@@ -20,7 +20,7 @@ interface TodoAppState {
     currentInputText: string;
 }
 
-class App extends React.Component <TodoAppProps, TodoAppState> {
+export class App extends React.Component <TodoAppProps, TodoAppState> {
     constructor(props: TodoAppProps) {
         super(props);
         this.handleInputChange = this.handleInputChange.bind(this);
@@ -80,8 +80,8 @@ class App extends React.Component <TodoAppProps, TodoAppState> {
     }
 
     toggleAll(e: ChangeEvent<HTMLInputElement>){
-        let target = e.target;
-        let checked = target.checked;
+        const target = e.target;
+        const checked = target.checked;
         this.props.toggleAll(checked);
     }
 
@@ -90,7 +90,7 @@ class App extends React.Component <TodoAppProps, TodoAppState> {
 
         return (
             <section className="todoapp">
-                <div>
+                <div>pp
                     <header className={'header'}>
                         <h1> todos </h1>
                         <form onSubmit={this.handleSubmit}>

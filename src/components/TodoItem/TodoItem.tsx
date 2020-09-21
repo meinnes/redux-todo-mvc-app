@@ -17,7 +17,7 @@ interface TodoItemProps {
     saveEdited: (index: number, editText: string) => Action;
 }
 
-class TodoItem extends Component<TodoItemProps, TodoItemState> {
+export class TodoItem extends Component<TodoItemProps, TodoItemState> {
     constructor(props: TodoItemProps) {
         super(props);
         this.state = {
@@ -60,14 +60,14 @@ class TodoItem extends Component<TodoItemProps, TodoItemState> {
         if (!inEditMode) {
             return (
                 <li className={isDoneStyle}>
-                    <div className={'view'}>
-                        <input className={'toggle'}
-                               type={'checkbox'}
+                    <div className="view">
+                        <input className="toggle"
+                               type="checkbox"
                                checked={done}
                                onClick={() => this.props.toggleItemDone(index)}
                         />
-                        <label
-                            onDoubleClick={() => this.editTodoItem()}>{item.name}
+                        <label onDoubleClick={() => this.editTodoItem()}>
+                            {item.name}
                         </label>
                         <button className={'destroy'}
                                 onClick={() => this.props.deleteTodoItem(index)}
