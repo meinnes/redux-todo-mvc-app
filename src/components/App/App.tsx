@@ -90,7 +90,7 @@ export class App extends React.Component <TodoAppProps, TodoAppState> {
 
         return (
             <section className="todoapp">
-                <div>pp
+                <div>
                     <header className={'header'}>
                         <h1> todos </h1>
                         <form onSubmit={this.handleSubmit}>

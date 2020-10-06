@@ -9,23 +9,16 @@ type FilterTabProps = {
     filterName: string;
     setVisibility: (filterName: string) => Action;
     tabName: string;
-    value: number;
-    handleTabChange: () => void;
     selectedFilter: string;
 }
 
 type FilterTabState = {}
 
-class FilterTab extends Component<FilterTabProps, FilterTabState> {
+export class FilterTab extends Component<FilterTabProps, FilterTabState> {
 
     setVisibility() {
         const filterName = this.props.filterName;
         this.props.setVisibility(filterName);
-    }
-
-    handleTabChange() {
-        this.props.handleTabChange();
-        this.setVisibility();
     }
 
     isThisTabSelected() {
@@ -36,8 +29,8 @@ class FilterTab extends Component<FilterTabProps, FilterTabState> {
         const tabName = this.props.tabName;
         const selectedStyle = this.isThisTabSelected() ? 'selected' : '';
         return (
-            <li value={this.props.value}
-                onClick={() => this.handleTabChange()}>
+            <li
+                onClick={() => this.setVisibility()}>
                 <a className={selectedStyle}> {tabName}</a>
             </li>
         )
