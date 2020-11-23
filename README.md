@@ -1,3 +1,5 @@
+![Alt](https://github.com/meinnes/redux-todo-mvc-app/blob/master/Screen%20Shot%202020-11-23%20at%2012.59.04%20PM.png "Screenshot of todo app")
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
